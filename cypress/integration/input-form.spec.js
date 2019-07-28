@@ -17,7 +17,7 @@ describe('Input form', () => {
     })
 
     context('Form submission', () => {
-        it.only('Adds a new todo on submit', () => {
+        it('Adds a new todo on submit', () => {
             const itemText = 'Buy eggs'
             cy.server()
             cy.route('POST', '/api/todos', {
@@ -34,6 +34,25 @@ describe('Input form', () => {
             cy.get('.todo-list li')
                 .should('have.length', 1)
                 .and('contain', itemText)
+        })
+
+        it.only('Shows an error message on a failed submission', () => {
+            cy.server()
+            cy.route({
+                url: '/api/todos',
+                method: 'POST',
+                status: 500,
+                response: {}
+            })
+
+            cy.get('.new-todo')
+                .type('test{enter}')
+
+            cy.get('.todo-list li')
+                .should('not.exist')
+            
+            cy.get('.error')
+                .should('be.visible')
         })
     })
 })
