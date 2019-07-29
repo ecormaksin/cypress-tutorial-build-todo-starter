@@ -3,7 +3,7 @@ describe('Input form', () => {
         cy.visit('/')
     })
 
-    it('focuses input on load', () => {
+    it.only('focuses input on load', () => {
         cy.focused()
             .should('have.class', 'new-todo')
     })
