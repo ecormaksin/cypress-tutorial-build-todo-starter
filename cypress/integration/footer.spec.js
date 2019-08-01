@@ -17,12 +17,20 @@ describe('', () => {
                 .should('contain', '3 todos left')
         })
 
-        it.only('Filters to active todos', () => {
+        it('Filters to active todos', () => {
             cy.contains('Active')
                 .click()
             
             cy.get('.todo-list li')
                 .should('have.length', 3)
+        })
+
+        it.only('Filters to completed todos', () => {
+            cy.contains('Completed')
+                .click()
+            
+            cy.get('.todo-list li')
+                .should('have.length', 1)
         })
     })
 })
