@@ -4,11 +4,6 @@
       "name": "Buy milk",
       "isComplete": false,
       "id": 1
-    },
-    {
-      "name": "Buy eggs",
-      "isComplete": false,
-      "id": 2
     }
   ]
 }
