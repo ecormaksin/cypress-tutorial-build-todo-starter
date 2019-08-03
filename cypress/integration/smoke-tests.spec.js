@@ -41,9 +41,26 @@ describe('Smoke tests', () => {
             cy.visit('/')
         })
 
-        it.only('Loads existing data from the DB', () => {
+        it('Loads existing data from the DB', () => {
             cy.get('.todo-list li')
                 .should('have.length', 4)
+        })
+
+        it.only('Deletes todos', () => {
+            cy.server()
+            cy.route('DELETE', '/api/todos/*')
+                .as('delete')
+            
+            cy.get('.todo-list li')
+                .each($el => {
+                    cy.wrap($el)
+                        .find('.destroy')
+                        .invoke('show')
+                        .click()
+                    
+                    cy.wait('@delete')
+                })
+                .should('not.exist')
         })
     })
 })
